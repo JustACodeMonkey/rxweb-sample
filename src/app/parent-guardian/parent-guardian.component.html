@@ -1,0 +1,190 @@
+<div 
+    *ngIf="!isPrintPage"
+    fxLayout="column" 
+    fxLayout.gt-sm="row wrap"
+    fxLayoutAlign.gt-sm="start stretch"
+    fxLayoutGap.gt-sm="18px"
+    fxLayoutGap="0px"
+    [formGroup]="parentGroup"
+>
+    <!-- Parent type -->
+    <mat-form-field  fxFlex.gt-sm="24" class="max-width" appearance="outline">
+        <mat-label>{{ labels.parentType }}</mat-label>
+        <mat-select
+            formControlName="parentType" 
+            >
+            <mat-option [value]="''"></mat-option>
+            <mat-option
+                *ngFor="let guardian of guardianOptions" 
+                [value]="guardian.code">
+                {{ guardian.desc }}
+            </mat-option>
+        </mat-select>
+        <mat-error>{{ labels.parentType }} is required</mat-error>
+    </mat-form-field>
+
+    <!-- Last name-->
+    <mat-form-field  fxFlex.gt-sm="24" class="max-width" appearance="outline">
+        <mat-label>{{ labels.lastName }}</mat-label>
+        <input matInput
+            formControlName="lastName"
+            maxlength="30"
+        >
+        <mat-error>{{ labels.lastName }} is required</mat-error>
+    </mat-form-field>
+
+    <!-- First name -->
+    <mat-form-field  fxFlex.gt-sm="24" class="max-width" appearance="outline">
+        <mat-label>{{ labels.firstName }}</mat-label>
+        <input matInput
+            formControlName="firstName"
+            maxlength="30"
+        >
+        <mat-error>{{ labels.firstName }} is required</mat-error>
+    </mat-form-field>
+
+    <!-- Speaks English -->
+    <div 
+        fxLayout="column"
+        fxFlex.gt-sm="20"
+        ngClass.lt-md="pb+"
+        class="max-width"
+    >
+        <p class="m0">{{ labels.speaksEnglish + '?' }}</p>
+        <mat-radio-group 
+            formControlName="speaksEnglish"
+            aria-label="speaks english confirmation options"
+        >
+            <mat-radio-button 
+                *ngFor="let radio of radioOptions; let first = first;"
+                [value]="radio.code"
+                class="pr"
+                [class.pr+]="first"
+            >{{ radio.desc }}</mat-radio-button>
+
+            <app-form-control-nullifier
+                [formField]="parentGroup.get('speaksEnglish')"
+                [isEditable]="isEditable"
+                [positionAbsolute]="false"
+                style="margin-bottom:-4px;margin-top:-4px;"
+            ></app-form-control-nullifier>
+        </mat-radio-group>
+        <mat-error *ngIf="parentGroup.invalid && parentGroup.get('speaksEnglish').hasError('required')" class="f-">
+            {{ labels.speaksEnglish }} is required
+        </mat-error>
+    </div>
+
+    <!-- Home phone -->
+    <mat-form-field fxFlex.gt-sm="20" class="max-width" appearance="outline">
+        <mat-label>{{ labels.homePhone }}</mat-label>
+        <input matInput mask="(000) 000-0000" [showMaskTyped]="true"
+            formControlName="homePhone"
+        >
+    </mat-form-field>
+
+    <!-- Mobile phone -->
+    <mat-form-field fxFlex.gt-sm="20" class="max-width" appearance="outline">
+        <mat-label>{{ labels.mobilePhone }}</mat-label>
+        <input matInput mask="(000) 000-0000" [showMaskTyped]="true"
+            formControlName="mobilePhone"
+        >
+    </mat-form-field>
+
+    <!-- Work phone -->
+    <mat-form-field fxFlex.gt-sm="20" class="max-width" appearance="outline">
+        <mat-label>{{ labels.workPhone }}</mat-label>
+        <input matInput mask="(000) 000-0000" [showMaskTyped]="true"
+            formControlName="workPhone"
+        >
+    </mat-form-field>
+
+    <!-- Extension -->
+    <mat-form-field  fxFlex.gt-sm="10" class="max-width" appearance="outline">
+        <mat-label>{{ labels.workExt }}</mat-label>
+        <input matInput
+            formControlName="workExt"
+            maxlength="6"
+        >
+    </mat-form-field>
+
+    <!-- Available at work -->
+    <div 
+        fxLayout="column"
+        fxFlex.gt-sm="20"
+        ngClass.lt-md="pb+"
+        class="max-width"
+    >
+        <p class="m0">{{ labels.availableAtWork + '?' }}</p>
+        <mat-radio-group 
+            formControlName="availableAtWork"
+            aria-label="speaks english confirmation options"
+        >
+            <mat-radio-button 
+                *ngFor="let radio of radioOptions; let first = first;"
+                [value]="radio.code"
+                class="pr"
+                [class.pr+]="first"
+            >{{ radio.desc }}</mat-radio-button>
+
+            <app-form-control-nullifier
+                [formField]="parentGroup.get('availableAtWork')"
+                [isEditable]="isEditable"
+                [positionAbsolute]="false"
+                style="margin-bottom:-4px;margin-top:-4px;"
+            ></app-form-control-nullifier>
+        </mat-radio-group>
+        <mat-error 
+            *ngIf="parentGroup.touched && parentGroup.get('availableAtWork').hasError('required')"
+            class="f-"
+        >
+            {{ labels.availableAtWork }} is required
+        </mat-error>
+    </div>
+
+    <!-- Phone error -->
+    <mat-error 
+        *ngIf="parentGroup.touched && parentGroup.hasError('atLeastOne')"
+        class="f- max-width pb+"
+        style="padding-left:12px;"
+    >
+        At least one phone number is required
+    </mat-error>
+    
+    <!-- Email -->
+    <mat-form-field fxFlex.gt-sm="24" class="max-width" appearance="outline">
+        <mat-label>{{ labels.email }}</mat-label>
+        <input matInput
+            formControlName="email"
+            maxlength="60"
+        >
+        <mat-error *ngIf="parentGroup.get('email').hasError('required')">{{ labels.email }} is required</mat-error>
+        <mat-error *ngIf="parentGroup.get('email').hasError('email')">{{ labels.email }} format is invalid</mat-error>
+    </mat-form-field>
+
+    <!-- Same address -->
+    <mat-checkbox 
+        class="mb+"
+        ngClass.gt-sm="mt++"
+        formControlName="sameAddress"
+        (change)="clearAddress()"
+    >
+        {{ labels.sameAddr }}
+    </mat-checkbox>
+
+    <!-- Address -->
+    <div 
+        *ngIf="!parentGroup.get('sameAddress').value"
+        fxFlex.gt-sm="24" 
+        class="max-width"    
+    >
+        <mat-form-field class="max-width" appearance="outline">
+            <mat-label>{{ labels.addr }}</mat-label>
+            <textarea 
+                matInput
+                formControlName="address"
+                maxlength="150"
+            ></textarea>
+            <mat-error>{{ labels.addr }} is required</mat-error>
+        </mat-form-field>
+    </div>
+</div>

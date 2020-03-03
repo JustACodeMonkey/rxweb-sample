@@ -1,0 +1,74 @@
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@import '~@angular/material/theming';
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat-core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$primary: mat-palette($mat-blue);
+$accent: mat-palette($mat-green);
+
+// The warn palette is optional (defaults to red).
+$warn: mat-palette($mat-red);
+
+// Create the theme object (a Sass map containing all of the palettes).
+$theme: mat-light-theme($primary, $accent, $warn);
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include angular-material-theme($theme);
+
+/* *****************************************************************
+ * BACKGROUNDS AND TEXT COLOURS
+ * ****************************************************************/
+.bgc-primary-50	    {background-color:#{map-get($mat-blue, 50)} !important;}
+.bgc-primary-100	{background-color:#{map-get($mat-blue, 100)} !important;}
+.bgc-primary-300	{background-color:#{map-get($mat-blue, 300)} !important;}
+.bgc-primary-500	{background-color:#{map-get($mat-blue, 500)} !important;}
+.bgc-primary-700	{background-color:#{map-get($mat-blue, 700)} !important;}
+.bgc-primary-900	{background-color:#{map-get($mat-blue, 900)} !important;}
+.bgc-accent-50	    {background-color:#{map-get($mat-green, 50)} !important;}
+.bgc-accent-100     {background-color:#{map-get($mat-green, 100)} !important;}
+.bgc-accent-300     {background-color:#{map-get($mat-green, 300)} !important;}
+.bgc-accent-500	    {background-color:#{map-get($mat-green, 500)} !important;}
+.bgc-accent-700     {background-color:#{map-get($mat-green, 700)} !important;}
+.bgc-accent-900     {background-color:#{map-get($mat-green, 900)} !important;}
+.bgc-warn-50	    {background-color:#{map-get($mat-red, 50)} !important;}
+.bgc-warn-100       {background-color:#{map-get($mat-red, 100)} !important;}
+.bgc-warn-300       {background-color:#{map-get($mat-red, 300)} !important;}
+.bgc-warn-500	    {background-color:#{map-get($mat-red, 500)} !important;}
+.bgc-warn-700       {background-color:#{map-get($mat-red, 700)} !important;}
+.bgc-warn-900       {background-color:#{map-get($mat-red, 900)} !important;}
+.bgc-grey-50        {background-color:#{map-get($mat-grey, 50)} !important;}
+.bgc-grey-100       {background-color:#{map-get($mat-grey, 100)} !important;}
+.bgc-white          {background-color:#FFF !important;}
+
+.tc-primary-300 {color:#{map-get($mat-blue, 300)};}
+.tc-primary-500 {color:#{map-get($mat-blue, 500)};}
+.tc-primary-700 {color:#{map-get($mat-blue, 700)};}
+.tc-primary-900 {color:#{map-get($mat-blue, 900)};}
+.tc-accent-300  {color:#{map-get($mat-green, 300)};}
+.tc-accent-500  {color:#{map-get($mat-green, 500)};}
+.tc-accent-700  {color:#{map-get($mat-green, 700)};}
+.tc-accent-900  {color:#{map-get($mat-green, 900)};}
+.tc-warn-500    {color:#{map-get($mat-red, 500)};}
+.tc-warn-700    {color:#{map-get($mat-red, 700)};}
+.tc-warn-900    {color:#{map-get($mat-red, 900)};}
+.tc-grey-300    {color:#{map-get($mat-grey, 300)};}
+.tc-grey-500    {color:#{map-get($mat-grey, 500)};}
+.tc-grey-700    {color:#{map-get($mat-grey, 700)};}
+.tc-white       {color:#FFF;}
+
+.light-grey     {color:#{map-get($mat-gray, 300)};}
+.grey           {color:#{map-get($mat-gray, 500)};}
+.bgc-light-grey {background-color:#{map-get($mat-gray, 300)} !important;}
+.bgc-grey       {background-color:#{map-get($mat-gray, 500)} !important;}
+
+a {color:#{map-get($mat-blue, 900)};}

@@ -1,0 +1,8 @@
+<button
+    mat-icon-button
+    [disabled]="!isEditable || !formField.value"
+    (click)="nullify($event)"
+    class="opacity-50 no-print"
+>
+    <mat-icon>cancel</mat-icon>
+</button>

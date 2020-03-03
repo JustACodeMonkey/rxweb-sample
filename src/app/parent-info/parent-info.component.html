@@ -1,0 +1,147 @@
+<div *ngIf="!isPrintPage" [formGroup]="parentGroup">
+    <div
+        fxLayout="column" 
+        fxLayout.gt-sm="row wrap"
+        fxLayoutAlign.gt-sm="start center"
+        fxLayoutGap.gt-sm="18px"
+        fxLayoutGap="0px"
+    >
+        <!-- Custody -->
+        <mat-form-field fxFlex.gt-sm="24" class="max-width" appearance="outline">
+            <mat-label>{{ labels.custody }}</mat-label>
+            <mat-select
+                formControlName="custody"
+                >
+                <mat-option [value]="''"></mat-option>
+                <mat-option
+                    *ngFor="let custody of custodyOptions" 
+                    [value]="custody.code">
+                    {{ custody.desc }}
+                </mat-option>
+            </mat-select>
+            <mat-error>{{ labels.custody }} is required</mat-error>
+        </mat-form-field>
+
+        <!-- Living with -->
+        <mat-form-field fxFlex.gt-sm="24" class="max-width" appearance="outline">
+            <mat-label>{{ labels.livingWith }}</mat-label>
+            <mat-select
+                formControlName="living" 
+                >
+                <mat-option [value]="''"></mat-option>
+                <mat-option
+                    *ngFor="let living of livingOptions" 
+                    [value]="living.code">
+                    {{ living.desc }}
+                </mat-option>
+            </mat-select>
+            <mat-error>{{ labels.livingWith }} is required</mat-error>
+        </mat-form-field>
+    </div
+    >
+    <!-- parent / guardian 1 -->
+    <app-parent-guardian 
+        [parentGroup]="parentGroup.get('parentGuardian1')" 
+        [index]="1"
+        [isEditable]="isEditable"
+        [isRequired]="true"
+    ></app-parent-guardian>
+
+    <!-- parent / guardian 2 -->
+    <app-parent-guardian 
+        [parentGroup]="parentGroup.get('parentGuardian2')" 
+        [index]="2"
+        [isEditable]="isEditable"
+        [isRequired]="false"
+    ></app-parent-guardian>
+    <!-- parent 2 used to be ....
+    <app-parent-guardian 
+        [parentGroup]="parentGroup.get('parentGuardian2')" 
+        [index]="2"
+        [isEditable]="isEditable"
+        [isRequired]="parentGroup.get('custody').value === bothParents"
+    ></app-parent-guardian>
+    -->
+
+    <!-- Parent's deceased -->
+    <mat-divider class="pb+"></mat-divider>
+    <div
+        fxLayout="column" 
+        fxLayout.gt-sm="row wrap"
+        fxLayoutAlign.gt-sm="start stretch"
+        fxLayoutGap.gt-sm="18px"
+        fxLayoutGap="0px"
+    >
+        <p class="pt tc-accent-700">If parent is deceased</p>
+        <!-- Father -->
+        <mat-form-field fxFlex.gt-sm="24" class="date-display max-width" appearance="outline">
+            <mat-label>{{ labels.fatherDeath }}</mat-label>
+            <input matInput
+                [hidden]="true"
+                [max]="maxDate"
+                [matDatepicker]="fatherDeathPicker"
+                formControlName="fathersDeath"
+            >
+            <span 
+                class="date-display"
+                [class.tc-grey-500]="!isEditable"
+                (click)="fatherDeathPicker.open()"
+            >{{ parentGroup.get('fathersDeath').value | date:'mediumDate' }}</span>
+            <mat-datepicker-toggle matSuffix [for]="fatherDeathPicker"></mat-datepicker-toggle>
+            <mat-datepicker #fatherDeathPicker></mat-datepicker>
+            <app-form-control-nullifier
+                [formField]="parentGroup.get('fathersDeath')"
+                [isEditable]="isEditable"
+                [positionAbsolute]="true"
+                [positionAbsoluteRight]="-70"
+            ></app-form-control-nullifier>
+        </mat-form-field>
+
+        <!-- Mother -->
+        <mat-form-field fxFlex.gt-sm="24" class="date-display max-width" appearance="outline">
+            <mat-label>{{ labels.motherDeath }}</mat-label>
+            <input matInput
+                [hidden]="true"
+                [max]="maxDate"
+                [matDatepicker]="motherDeathPicker"
+                formControlName="mothersDeath"
+            >
+            <span 
+                class="date-display"
+                [class.tc-grey-500]="!isEditable"
+                (click)="motherDeathPicker.open()"
+            >
+                {{ parentGroup.get('mothersDeath').value | date:'mediumDate' }}
+            </span>
+            <mat-datepicker-toggle matSuffix [for]="motherDeathPicker"></mat-datepicker-toggle>
+            <mat-datepicker #motherDeathPicker></mat-datepicker>
+            <app-form-control-nullifier
+                [formField]="parentGroup.get('mothersDeath')"
+                [isEditable]="isEditable"
+                [positionAbsolute]="true"
+                [positionAbsoluteRight]="-70"
+            ></app-form-control-nullifier>
+        </mat-form-field>
+    </div>
+    
+    <!-- Extra information -->
+    <mat-divider class="pb+"></mat-divider>
+    <div 
+        fxLayout="column" 
+        fxLayout.gt-sm="row wrap"
+        fxLayoutAlign.gt-sm="start stretch"
+        fxLayoutGap.gt-sm="18px"
+        fxLayoutGap="0px"
+    >
+        <!-- Additional info -->
+        <mat-form-field class="max-width" appearance="outline">
+            <mat-label>{{ labels.additionalInfo }}</mat-label>
+            <textarea 
+                matInput 
+                placeholder="{{familyPlaceholder + alternatePlaceholder}}"
+                formControlName="familyInfo"
+                maxlength="350"
+            ></textarea>
+        </mat-form-field>
+    </div>
+</div>

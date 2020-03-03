@@ -1,0 +1,24 @@
+<mat-vertical-stepper 
+    *ngIf="loaded"
+    #stepper
+    appMatVerticalStepperScroller
+    [linear]="true"
+    class="max-container ph0 position-relative no-print"
+>
+    <!-- Student details -->
+    <mat-step [stepControl]="registrationGroup.controls.parentInfo">
+        <app-parent-info
+            [parentGroup]="registrationGroup.controls.parentInfo"
+            [isEditable]="true"
+            [isPrintPage]="false">
+        </app-parent-info>
+        
+        <button 
+            mat-flat-button
+            color="primary"
+            (click)="submit()"
+        >
+            <span>Submit</span>
+        </button>
+    </mat-step>
+</mat-vertical-stepper>

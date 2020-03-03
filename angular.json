@@ -1,6 +1,6 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
-  "version": 1, 
+  "version": 1,
   "newProjectRoot": "projects",
   "projects": {
     "rxweb-sample": {
@@ -123,6 +123,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "rxweb-sample"
+    }
+  },
+  "defaultProject": "rxweb-sample",
+  "cli": {
+    "analytics": "94a218e4-ee46-4868-b405-15db7172e355"
+  }
 }
